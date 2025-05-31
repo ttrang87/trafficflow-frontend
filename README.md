@@ -52,7 +52,7 @@ This project aims to combine learning and practical application of Java core con
 ## 🛠️ Tech Stack
 
 **Backend**: Java 17, Spring Boot, WebSocket, Multithreading  
-**Frontend**: React, TypeScript, Canvas API, Tailwind CSS  
+**Frontend**: React, JavaScript, Canvas API, Tailwind CSS  
 **Architecture**: REST API + WebSocket for real-time communication
 
 ## 🏆 Technical Highlights
