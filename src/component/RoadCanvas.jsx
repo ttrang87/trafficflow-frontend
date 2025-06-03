@@ -48,7 +48,7 @@ const RoadCanvas = ({ roadCoordinate }) => {
       ref={canvasRef}
       width={950}
       height={920}
-      style={{ position: "absolute", top: 0, left: 0 }}
+      style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
     />
   );
 };

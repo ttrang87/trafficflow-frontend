@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { API } from "../api";
 import RoadCanvas from "./RoadCanvas";
 import TrafficLightCanvas from "./TrafficLightCanvas";
+import Vehicle from "./Vehicle";
 
 const TrafficFlow = () => {
   const [roadCoordinate, setRoadCoordinate] = useState(null);
+  const [vehicles, setVehicles] = useState(null)
   const [trafficLightColors, setTrafficLightColors] = useState(null);
   const [trafficAttribute, setTrafficAttribute] = useState(null);
   const trafficWidth = 15;
@@ -37,13 +39,33 @@ const TrafficFlow = () => {
         });
         const data = await response.json();
         setTrafficLightColors(data);
-        console.log(data)
       } catch (err) {
         console.error(err);
       }
     };
 
     getTrafficLightColors();
+  }, []);
+
+  // Fetch vehicles
+  useEffect(() => {
+    const getCar = async () => {
+      try {
+        const response = await fetch(API.GET_CAR, {
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' },
+        });
+        
+        const data = await response.json();
+        setVehicles(data);
+        console.log(data)
+
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getCar();
   }, []);
 
   useEffect(() => {
@@ -85,7 +107,8 @@ const TrafficFlow = () => {
     <div className="p-10">
       <div className="bg-gray-400 rounded-lg" style={{ position: "relative", width: 950, height: 920 }}>
         <RoadCanvas roadCoordinate={roadCoordinate} />
-        <TrafficLightCanvas trafficAttribute={trafficAttribute} />
+        <TrafficLightCanvas trafficAttribute={trafficAttribute} trafficLightColors={trafficLightColors} />
+        <Vehicle vehicles={vehicles}/>
       </div>
     </div>
   );
