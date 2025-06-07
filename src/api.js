@@ -5,5 +5,6 @@ export const API = {
     GET_ROAD_COORDINATE: `${API_BASE}/get-road-coordinate`,
     GET_TRAFFIC_LIGHT:  `${API_BASE}/get-traffic-light`,
     GET_CAR:  `${API_BASE}/get-car`,
+    WS_ENDPOINT: `${API_BASE}/ws`
 }
 

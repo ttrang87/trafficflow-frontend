@@ -4,8 +4,10 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
 
     const canvasRef = useRef(null);
 
+
     useEffect(() => {
         const canvas = canvasRef.current;
+        if (!canvas || !trafficAttribute || !trafficLightColors) return;
         const ctx = canvas.getContext("2d");
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -20,7 +22,7 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
                     realColor === "RED" ? 0 :
                         realColor === "YELLOW" ? 1 :
                             realColor === "GREEN" ? 2 :
-                                -1; 
+                                -1;
 
 
                 // Draw the traffic light box
@@ -74,7 +76,7 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
                 }
             });
         }
-    }, [trafficAttribute]);
+    }, [trafficAttribute, trafficLightColors]);
 
     return (
         <canvas
