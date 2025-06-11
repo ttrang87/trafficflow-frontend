@@ -59,8 +59,8 @@ const Vehicle = ({ vehicles }) => {
     return (
         <canvas
             ref={canvasRef}
-            width={1050}
-            height={1100}
+            width={1020}
+            height={1000}
             style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
         />
     )
