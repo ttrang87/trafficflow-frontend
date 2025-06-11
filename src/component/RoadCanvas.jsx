@@ -115,8 +115,8 @@ const RoadCanvas = ({ roadCoordinate }) => {
   return (
     <canvas
       ref={canvasRef}
-      width={1020}
-      height={920}
+      width={1050}
+      height={1200}
       style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
     />
   );

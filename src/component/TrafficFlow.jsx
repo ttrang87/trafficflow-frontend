@@ -184,7 +184,7 @@ const TrafficFlow = () => {
           WebSocket: <span className="text-green-600">🔌 Active</span>
         </div>
       </div>
-      <div className="bg-gray-400 rounded-lg" style={{ position: "relative", width: 1000, height: 970 }}>
+      <div className="bg-gray-400 rounded-lg" style={{ position: "relative", width: 1020, height: 1000 }}>
         <RoadCanvas roadCoordinate={roadCoordinate} />
         <TrafficLightCanvas trafficAttribute={trafficAttribute} trafficLightColors={trafficLightColors} />
         <Vehicle vehicles={vehicles} />

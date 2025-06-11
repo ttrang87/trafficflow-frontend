@@ -41,11 +41,11 @@ const Vehicle = ({ vehicles }) => {
             const angle = (angleMap[car.direction] * Math.PI) / 180
             ctx.rotate(angle)
 
-            let scale = 0.06
-            if (car.brand === "Ambulance" || car.brand === "MiniVan" || car.brand === "Police" || car.brand === "Ford" || car.brand === "Honda") {
-                scale = 0.075
+            let scale = 0.055
+            if (car.brand === "Ambulance" || car.brand === "MiniVan" || car.brand === "Police" || car.brand === "Ford" || car.brand === "Honda" || car.brand === "Toyota") {
+                scale = 0.07
             } else if (car.brand == "Delivery") {
-                scale = 0.09
+                scale = 0.085
             }
 
             const width = img.width * scale
@@ -59,8 +59,8 @@ const Vehicle = ({ vehicles }) => {
     return (
         <canvas
             ref={canvasRef}
-            width={950}
-            height={920}
+            width={1050}
+            height={1100}
             style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
         />
     )
