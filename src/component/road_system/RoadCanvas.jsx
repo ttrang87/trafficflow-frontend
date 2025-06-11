@@ -10,9 +10,9 @@ const RoadCanvas = ({ roadCoordinate }) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // ===== Draw roads =====
-    ctx.fillStyle = "#454d52";
+    ctx.fillStyle = "#4f5050";
     Object.values(roadCoordinate).forEach(({ xLeft, xRight, yUp, yDown }) => {
-      ctx.fillStyle = "#454d52";
+      ctx.fillStyle = "#4f5050";
       ctx.fillRect(xLeft, yUp, xRight - xLeft, yDown - yUp);
 
       const roadWidth = xRight - xLeft;
@@ -31,9 +31,9 @@ const RoadCanvas = ({ roadCoordinate }) => {
 
           if (i === numLanes / 2) {
             ctx.setLineDash([]);
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 2;
           } else {
-            ctx.setLineDash([12, 12]);
+            ctx.setLineDash([8, 8]);
             ctx.lineWidth = 2;
           }
 
@@ -41,13 +41,10 @@ const RoadCanvas = ({ roadCoordinate }) => {
           ctx.stroke();
         }
 
-        // Optional emergency lane fills (currently commented out)
-        // ctx.fillRect(xLeft, yUp, laneWidth, yDown - yUp); // inbound
-        // ctx.fillRect(xRight - laneWidth, yUp, laneWidth, yDown - yUp); // outbound
 
         // Add EMERGENCY labels
         ctx.fillStyle = "white";
-        ctx.font = "12px Arial";
+        ctx.font = "10px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
@@ -77,9 +74,9 @@ const RoadCanvas = ({ roadCoordinate }) => {
 
           if (i === numLanes / 2) {
             ctx.setLineDash([]);
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 2;
           } else {
-            ctx.setLineDash([12, 12]);
+            ctx.setLineDash([8, 8]);
             ctx.lineWidth = 2;
           }
 
@@ -93,7 +90,7 @@ const RoadCanvas = ({ roadCoordinate }) => {
 
         // Add EMERGENCY labels
         ctx.fillStyle = "white";
-        ctx.font = "12px Arial";
+        ctx.font = "10px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
@@ -108,15 +105,15 @@ const RoadCanvas = ({ roadCoordinate }) => {
     });
 
     // Draw center box (hardcoded)
-    ctx.fillStyle = "#454d52";
-    ctx.fillRect(420, 400, 180, 180);
+    ctx.fillStyle = "#4f5050";
+    ctx.fillRect(340, 340, 120, 120);
   }, [roadCoordinate]);
 
   return (
     <canvas
       ref={canvasRef}
-      width={1020}
-      height={1000}
+      width={800}
+      height={800}
       style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
     />
   );

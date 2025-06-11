@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import useTrafficWebSocket from "./useTrafficWebSocket";
+import useTrafficWebSocket from "../useTrafficWebSocket";
 import RoadCanvas from "./RoadCanvas";
 import TrafficLightCanvas from "./TrafficLightCanvas";
 import Vehicle from "./Vehicle";
-import { API } from "../api";
+import { API } from "../../api";
 
 const TrafficFlow = () => {
   const [roadCoordinate, setRoadCoordinate] = useState(null);
@@ -13,8 +13,8 @@ const TrafficFlow = () => {
   const [isServerReady, setIsServerReady] = useState(false);
   const [shouldConnectWebSocket, setShouldConnectWebSocket] = useState(false);
 
-  const trafficWidth = 15;
-  const trafficLength = 40;
+  const trafficWidth = 10;
+  const trafficLength = 30;
 
   const checkServerHealth = async () => {
     try {
@@ -139,11 +139,11 @@ const TrafficFlow = () => {
   if (!isServerReady) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 950, height: 920 }}>
+        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
           <div className="mt-96">
-            <div className="text-xl mb-4 text-black">🚦 Traffic Simulation</div>
-            <div className="text-gray-600">⏳ Waiting for server to start...</div>
-            <div className="mt-2 text-sm text-gray-500">This may take a few moments</div>
+            <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
+            <div className="text-sm text-gray-600">⏳ Waiting for server to start...</div>
+            <div className="mt-2 text-xs text-gray-500">This may take a few moments</div>
           </div>
         </div>
       </div>
@@ -153,10 +153,10 @@ const TrafficFlow = () => {
   if (!roadCoordinate || !trafficAttribute) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 950, height: 920 }}>
+        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
           <div className="mt-96">
-            <div className="text-xl mb-4 text-black">🚦 Traffic Simulation</div>
-            <div className="text-gray-600">📍 Loading road coordinates...</div>
+            <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
+            <div className="text-sm text-gray-600">📍 Loading road coordinates...</div>
           </div>
         </div>
       </div>
@@ -166,10 +166,10 @@ const TrafficFlow = () => {
   if (!shouldConnectWebSocket) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 950, height: 920 }}>
+        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
           <div className="mt-96">
-            <div className="text-xl mb-4 text-black">🚦 Traffic Simulation</div>
-            <div className="text-gray-600">🔌 Connecting to traffic system...</div>
+            <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
+            <div className="text-sm text-gray-600">🔌 Connecting to traffic system...</div>
           </div>
         </div>
       </div>
@@ -177,14 +177,14 @@ const TrafficFlow = () => {
   }
 
   return (
-    <div className="p-10">
-      <div className="mb-4">
-        <div className="text-sm text-gray-600">
-          Server: <span className="text-green-600">✅ Connected</span> | 
-          WebSocket: <span className="text-green-600">🔌 Active</span>
+    <div className="p-8">
+      <div className="mb-2">
+        <div className="text-xs text-gray-800">
+          Server: <span className="text-green-700">✅ Connected</span> | 
+          WebSocket: <span className="text-green-700">🔌 Active</span>
         </div>
       </div>
-      <div className="bg-gray-400 rounded-lg" style={{ position: "relative", width: 1020, height: 1000 }}>
+      <div className="bg-gradient-to-br from-blue-100 to-green-50" style={{ position: "relative", width: 800, height: 800 }}>
         <RoadCanvas roadCoordinate={roadCoordinate} />
         <TrafficLightCanvas trafficAttribute={trafficAttribute} trafficLightColors={trafficLightColors} />
         <Vehicle vehicles={vehicles} />

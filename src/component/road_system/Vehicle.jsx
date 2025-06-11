@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { carImages } from '../assets/cars/carmatch'
+import { carImages } from '../../assets/cars/carmatch'
 
 const preloadImages = () => {
     const loaded = {}
@@ -41,11 +41,13 @@ const Vehicle = ({ vehicles }) => {
             const angle = (angleMap[car.direction] * Math.PI) / 180
             ctx.rotate(angle)
 
-            let scale = 0.055
-            if (car.brand === "Ambulance" || car.brand === "MiniVan" || car.brand === "Police" || car.brand === "Ford" || car.brand === "Honda" || car.brand === "Toyota") {
-                scale = 0.07
-            } else if (car.brand == "Delivery") {
-                scale = 0.085
+            let scale = 0.03
+            if (car.brand === "Ambulance" ||  car.brand === "MiniVan" || car.brand === "Police" || car.brand === "Honda" || car.brand === "Toyota" || car.brand === "Audi") {
+                scale = 0.045
+            } else if ( car.brand === "FireTruck") {
+                scale = 0.04
+            } else if (car.brand === "Delivery" || car.brand === "Ford" ) {
+                scale = 0.05
             }
 
             const width = img.width * scale
@@ -59,8 +61,8 @@ const Vehicle = ({ vehicles }) => {
     return (
         <canvas
             ref={canvasRef}
-            width={1020}
-            height={1000}
+            width={800}
+            height={800}
             style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
         />
     )

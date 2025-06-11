@@ -34,7 +34,7 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
                 // Parameters
                 const defaultColors = ["#bf9b9b", "#807e4f", "#748c69"];
                 const lightColors = ["#fc0a0a", "#fcec0a", "#11de07"];
-                const gapBetweenCircles = 4; // Customize this for desired spacing
+                const gapBetweenCircles = 2; // Customize this for desired spacing
 
 
 
@@ -44,7 +44,7 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
                     ? Math.min(width / 3, (availableSpace - 2 * gapBetweenCircles) / 3 / 2)
                     : Math.min(height / 3, (availableSpace - 2 * gapBetweenCircles) / 3 / 2);
 
-                const radius = maxRadius * 0.9; // slightly shrink to add padding
+                const radius = maxRadius * 1; // slightly shrink to add padding
 
                 for (let i = 0; i < 3; i++) {
                     let cx, cy;
@@ -81,8 +81,8 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
     return (
         <canvas
             ref={canvasRef}
-            width={950}
-            height={920}
+            width={800}
+            height={800}
             style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
         />
     );
