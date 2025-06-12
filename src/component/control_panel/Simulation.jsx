@@ -30,20 +30,20 @@ export default function Simulation() {
       <div className="flex gap-2 mb-6">
         <button
           onClick={handlePlayPause}
-          className="flex-1 bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg px-4 py-3 flex items-center justify-center transition-colors"
+          className="flex-1 bg-green-50 border border-green-200 hover:bg-green-100 rounded-lg px-4 py-3 flex items-center justify-center transition-colors focus:outline-none"
         >
           {isRunning ? (
             <div className="flex gap-1">
-              <div className="w-1 h-4 bg-green-600 rounded-sm"></div>
-              <div className="w-1 h-4 bg-green-600 rounded-sm"></div>
+              <div className="w-1 h-4 bg-green-800 rounded-sm"></div>
+              <div className="w-1 h-4 bg-green-800 rounded-sm"></div>
             </div>
           ) : (
-            <Play className="w-4 h-4 text-green-600 fill-current" />
+            <Play className="w-4 h-4 text-green-800 fill-current" />
           )}
         </button>
         <button
           onClick={handleReset}
-          className="bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg px-4 py-3 flex items-center justify-center transition-colors"
+          className="bg-blue-50 hover:bg-blue-100 rounded-lg px-4 py-3 flex items-center justify-center transition-colors"
         >
           <RotateCcw className="w-4 h-4 text-blue-600" />
         </button>
@@ -57,10 +57,10 @@ export default function Simulation() {
             <button
               key={speedOption}
               onClick={() => setSpeed(speedOption)}
-              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none ${
                 speed === speedOption
                   ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200'
+                  : 'bg-blue-50 text-blue-900 hover:bg-blue-100'
               }`}
             >
               {speedOption}
@@ -77,10 +77,10 @@ export default function Simulation() {
             <button
               key={scenarioOption}
               onClick={() => setScenario(scenarioOption)}
-              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none ${
                 scenario === scenarioOption
                   ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200'
+                  : 'bg-blue-50 text-blue-900 hover:bg-blue-100'
               }`}
             >
               {scenarioOption}

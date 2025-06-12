@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import useTrafficWebSocket from "../useTrafficWebSocket";
 import RoadCanvas from "./RoadCanvas";
 import TrafficLightCanvas from "./TrafficLightCanvas";
 import Vehicle from "./Vehicle";
 import { API } from "../../api";
 
-const TrafficFlow = () => {
+// TrafficFlow now receives data as props instead of managing WebSocket directly
+const TrafficFlow = ({ vehicles, trafficLightColors, setShouldConnectWebSocket, shouldConnectWebSocket }) => {
   const [roadCoordinate, setRoadCoordinate] = useState(null);
-  const [vehicles, setVehicles] = useState(null);
-  const [trafficLightColors, setTrafficLightColors] = useState(null);
   const [trafficAttribute, setTrafficAttribute] = useState(null);
   const [isServerReady, setIsServerReady] = useState(false);
-  const [shouldConnectWebSocket, setShouldConnectWebSocket] = useState(false);
 
   const trafficWidth = 10;
   const trafficLength = 30;
@@ -81,6 +78,7 @@ const TrafficFlow = () => {
         if (isMounted) {
           setRoadCoordinate(data);
 
+          // Notify parent to start WebSocket connection
           setTimeout(() => {
             if (isMounted) {
               console.log('🔌 Enabling WebSocket connection...');
@@ -98,9 +96,7 @@ const TrafficFlow = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnectWebSocket);
+  }, [setShouldConnectWebSocket]);
 
   useEffect(() => {
     if (!roadCoordinate) return;
@@ -139,8 +135,8 @@ const TrafficFlow = () => {
   if (!isServerReady) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
-          <div className="mt-96">
+        <div className="bg-gray-100 rounded-lg p-8 text-center flex items-center justify-center" style={{ width: 800, height: 800 }}>
+          <div>
             <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
             <div className="text-sm text-gray-600">⏳ Waiting for server to start...</div>
             <div className="mt-2 text-xs text-gray-500">This may take a few moments</div>
@@ -153,8 +149,8 @@ const TrafficFlow = () => {
   if (!roadCoordinate || !trafficAttribute) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
-          <div className="mt-96">
+        <div className="bg-gray-100 rounded-lg p-8 text-center flex items-center justify-center" style={{ width: 800, height: 800 }}>
+          <div>
             <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
             <div className="text-sm text-gray-600">📍 Loading road coordinates...</div>
           </div>
@@ -166,8 +162,8 @@ const TrafficFlow = () => {
   if (!shouldConnectWebSocket) {
     return (
       <div className="p-10">
-        <div className="bg-gray-100 rounded-lg p-8 text-center" style={{ width: 800, height: 800 }}>
-          <div className="mt-96">
+        <div className="bg-gray-100 rounded-lg p-8 text-center flex items-center justify-center" style={{ width: 800, height: 800 }}>
+          <div>
             <div className="text-md mb-4 text-black">🚦 Traffic Simulation</div>
             <div className="text-sm text-gray-600">🔌 Connecting to traffic system...</div>
           </div>

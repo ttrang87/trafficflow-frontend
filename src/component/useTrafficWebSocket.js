@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnect) {
+export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnect, setTotalCar, setAvgSpeed, setAvgWait) {
   const clientRef = useRef(null);
 
   useEffect(() => {
@@ -16,17 +16,29 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
         console.log("✅ STOMP connected:", frame);
 
         client.subscribe("/topic/vehicles", (message) => {
-          console.log("This demonstrate that client receive messge of vehicles")
           const data = JSON.parse(message.body);
-          console.log("🚗 Vehicle update received:", data);
           setVehicles(data); // will always update
         });
 
         client.subscribe("/topic/traffic-light", (message) => {
-          console.log("This demonstrate that client receive messge of vehicles")
           const data = JSON.parse(message.body);
-          console.log("🚦 Traffic light update received:", data);
           setTrafficLightColors(data);
+        });
+
+
+        client.subscribe("/topic/number-of-vehicles", (message) => {
+          const data = JSON.parse(message.body);
+          setTotalCar(data);
+        });
+
+        client.subscribe("/topic/avg-speed", (message) => {
+          const data = JSON.parse(message.body);
+          setAvgSpeed(data);
+        });
+
+         client.subscribe("/topic/avg-wait", (message) => {
+          const data = JSON.parse(message.body);
+          setAvgWait(data);
         });
       },
       onStompError: (frame) => {

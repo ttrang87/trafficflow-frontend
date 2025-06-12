@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { TrendingUp, Car, Truck, Bus } from 'lucide-react';
+import { TrendingUp, Car, Zap, Timer, Skull } from 'lucide-react';
 
-export default function LiveStats() {
+export default function LiveStats({totalCar, avgSpeed, avgWait}) {
   const [stats, setStats] = useState({
     cars: 24,
     trucks: 8,
@@ -33,53 +33,44 @@ export default function LiveStats() {
         <h2 className="text-lg font-semibold text-blue-900">Live Stats</h2>
       </div>
 
-      {/* Vehicle Stats */}
-      <div className="space-y-4 mb-6 border-b border-green-200 pb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-              <Car className="w-4 h-4 text-blue-600" />
-            </div>
-            <span className="text-sm font-medium text-blue-900">Cars</span>
-          </div>
-          <span className="text-lg font-semibold text-green-700">{stats.cars}</span>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-              <Truck className="w-4 h-4 text-green-600" />
-            </div>
-            <span className="text-sm font-medium text-blue-900">Trucks</span>
-          </div>
-          <span className="text-lg font-semibold text-green-700">{stats.trucks}</span>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-              <Bus className="w-4 h-4 text-blue-600" />
-            </div>
-            <span className="text-sm font-medium text-blue-900">Emergency</span>
-          </div>
-          <span className="text-lg font-semibold text-green-700">{stats.buses}</span>
-        </div>
-      </div>
 
       {/* Performance Stats */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-blue-900">Avg Speed</span>
-          <span className="text-lg font-semibold text-green-700">{stats.avgSpeed} km/h</span>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+              <Car className="w-4 h-4 text-blue-800" />
+            </div>
+            <span className="text-sm font-medium text-blue-900">Cars</span>
+          </div>
+          <span className="text-lg font-semibold text-green-700">{totalCar}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+              <Zap className="w-4 h-4 text-green-600" />
+            </div>
+            <span className="text-sm font-medium text-blue-900">System Speed</span>
+          </div>
+          <span className="text-lg font-semibold text-green-700">{avgSpeed * 10} px/s</span>
+        </div>
+       <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+              <Timer className="w-4 h-4 text-blue-800" />
+            </div>
+            <span className="text-sm font-medium text-blue-900">Wait Time</span>
+          </div>
+          <span className="text-lg font-semibold text-green-700">{avgWait} s</span>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-blue-900">Wait Time</span>
-          <span className="text-lg font-semibold text-green-700">{stats.waitTime.toFixed(1)} min</span>
-        </div>
-
-         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-blue-900">Collisions</span>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+              <Skull className="w-4 h-4 text-green-600" />
+            </div>
+            <span className="text-sm font-medium text-blue-900">Collision</span>
+          </div>
           <span className="text-lg font-semibold text-green-700">0</span>
         </div>
       </div>
