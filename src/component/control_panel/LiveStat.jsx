@@ -17,7 +17,7 @@ export default function LiveStats({totalCar, avgSpeed, avgWait}) {
             <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
               <Car className="w-3 h-3 text-blue-800" />
             </div>
-            <span className="text-xs font-medium text-blue-900">Cars</span>
+            <span className="text-xs font-medium text-blue-900">Total Vehicles</span>
           </div>
           <span className="text-sm font-semibold text-green-700">{totalCar}</span>
         </div>

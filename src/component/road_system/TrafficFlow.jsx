@@ -176,7 +176,7 @@ const TrafficFlow = ({ vehicles, trafficLightColors, setShouldConnectWebSocket, 
     <div className="p-8">
       <div className="mb-2">
         <div className="text-xs text-gray-800">
-          Server: <span className="text-green-700">✅ Connected</span> | 
+          Server: <span className="text-green-700">✅ Connected</span> |
           WebSocket: <span className="text-green-700">🔌 Active</span>
         </div>
       </div>

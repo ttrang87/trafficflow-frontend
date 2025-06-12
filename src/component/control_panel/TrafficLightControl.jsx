@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { RotateCcw } from 'lucide-react';
+import { toast, Toaster } from 'react-hot-toast';
 import { API } from '../../api';
 
 const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => {
@@ -14,6 +15,7 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
     }
 
     const [isUpdating, setIsUpdating] = useState(false);
+    const [isEmergency, setEmergency] = useState(false);
 
     const {
         North: north,
@@ -62,7 +64,7 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
                     setGreenTime(data.GREEN);
                 }
 
-                
+
 
             } catch (error) {
                 console.error('❌ Error fetching light duration: ', error);
@@ -91,6 +93,32 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
             });
         }
     }, [trafficLightColors]);
+
+    // Check for emergency mode (all lights red)
+    useEffect(() => {
+        const allRed = currentStates.north === 'red' &&
+            currentStates.south === 'red' &&
+            currentStates.east === 'red' &&
+            currentStates.west === 'red';
+
+        if (allRed) {
+            if (!isEmergency) {
+                toast('Emergency Mode', {
+                    icon: '🚨',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#FFFFFF',
+                        color: '#8a0606',   
+                        fontWeight: 600,    
+                    },
+                    duration: 4000,
+                });
+                setEmergency(true)
+            }
+        } else {
+            setEmergency(false)
+        }
+    }, [currentStates]);
 
     const postNewDuration = async (newYellow, newGreen) => {
         setIsUpdating(true);
@@ -129,13 +157,17 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
     };
 
     const handleReset = async () => {
-        postNewDuration(yellowTime, greenTime)
+        await postNewDuration(yellowTime, greenTime)
         setIsReset(true);
 
     };
 
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-5 w-full max-w-md min-w-80">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             {/* Header */}
             <div className="flex items-center gap-2 mb-3">
                 <h2 className="text-sm font-semibold text-blue-900">Traffic Light</h2>
@@ -143,7 +175,7 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
             </div>
 
             {/* Traffic Light Status Grid */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
+            <div className="grid grid-cols-2 gap-2 mb-3">
                 {/* North */}
                 <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                     <div className={`w-4 h-4 rounded-full ${currentStates.north === 'green' ? 'bg-green-500' : currentStates.north === 'yellow' ? 'bg-yellow-400' : 'bg-red-500'}`}></div>
@@ -174,14 +206,14 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
             </div>
 
             {/* Light Timing Controls */}
-            <div className="space-y-3 mb-4">
+            <div className="space-y-3 mb-3">
                 <h2 className="text-xs font-semibold text-blue-900">Duration (seconds)</h2>
 
                 {/* Red - Non-modifiable */}
                 <div className="flex items-center justify-between p-2 bg-red-50 rounded-lg">
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <span className="text-xs">Red</span>
+                        <span className="text-xs text-red-800">Red</span>
                     </div>
                     <div className="flex items-center gap-2 mr-10">
                         <span className="text-xs text-center">{3 * (yellowTime + greenTime)}</span>
@@ -192,7 +224,7 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
                 <div className="flex items-center justify-between p-2 bg-yellow-50 rounded-lg">
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                        <span className="text-xs">Yellow</span>
+                        <span className="text-xs text-yellow-800">Yellow</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <button
@@ -217,7 +249,7 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
                 <div className="flex items-center justify-between p-2 bg-green-50 rounded-lg">
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span className="text-xs">Green</span>
+                        <span className="text-xs text-green-800">Green</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <button
@@ -241,11 +273,11 @@ const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => 
 
             {/* Control Buttons */}
             <button
-                className="w-full p-2 rounded text-xs bg-gray-500 hover:bg-gray-600 text-white flex justify-center items-center gap-2 disabled:opacity-50"
+                className="w-full p-2 rounded text-xs bg-gradient-to-br from-blue-100 to-green-100 text-blue-900 flex justify-center items-center gap-2 disabled:opacity-50"
                 onClick={() => handleReset()}
                 disabled={isUpdating}
             >
-                <RotateCcw className='w-3 h-3 text-white' />
+                <RotateCcw className='w-3 h-3 text-blue-800' />
                 Reset
             </button>
 
