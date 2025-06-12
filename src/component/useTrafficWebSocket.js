@@ -22,6 +22,7 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
 
         client.subscribe("/topic/traffic-light", (message) => {
           const data = JSON.parse(message.body);
+          console.log(data)
           setTrafficLightColors(data);
         });
 

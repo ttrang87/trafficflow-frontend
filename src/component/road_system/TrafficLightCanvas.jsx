@@ -17,7 +17,7 @@ const TrafficLightCanvas = ({ trafficAttribute, trafficLightColors }) => {
                 const width = xRight - xLeft;
                 const height = yDown - yUp;
 
-                const realColor = trafficLightColors[direction];
+                const realColor = trafficLightColors[direction].color;
                 const indexColor =
                     realColor === "RED" ? 0 :
                         realColor === "YELLOW" ? 1 :

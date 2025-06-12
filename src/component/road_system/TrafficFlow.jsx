@@ -15,7 +15,7 @@ const TrafficFlow = ({ vehicles, trafficLightColors, setShouldConnectWebSocket, 
 
   const checkServerHealth = async () => {
     try {
-      const response = await fetch('http://localhost:8080/actuator/health', {
+      const response = await fetch(API.SYSTEM_CHECK, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
