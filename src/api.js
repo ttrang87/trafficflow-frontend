@@ -5,6 +5,7 @@ export const API = {
     GET_ROAD_COORDINATE: `${API_BASE}/get-road-coordinate`,
     GET_TRAFFIC_LIGHT:  `${API_BASE}/get-traffic-light`,
     GET_CAR:  `${API_BASE}/get-car`,
+    LIGHT_DURATION: `${API_BASE}/set-light-duration`,
 
     POST_NEW_SPEED: `${API_BASE}/set-speed-level`,
     POST_NEW_DENSITY: `${API_BASE}/set-density-level`,

@@ -1,30 +1,6 @@
-import { useState, useEffect } from 'react';
 import { TrendingUp, Car, Zap, Timer, Skull } from 'lucide-react';
 
 export default function LiveStats({totalCar, avgSpeed, avgWait}) {
-  const [stats, setStats] = useState({
-    cars: 24,
-    trucks: 8,
-    buses: 3,
-    avgSpeed: 45,
-    waitTime: 2.3
-  });
-
-  // Simulate live data updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        cars: Math.max(0, prev.cars + Math.floor(Math.random() * 5) - 2),
-        trucks: Math.max(0, prev.trucks + Math.floor(Math.random() * 3) - 1),
-        buses: Math.max(0, prev.buses + Math.floor(Math.random() * 2) - 1),
-        avgSpeed: Math.max(0, prev.avgSpeed + Math.floor(Math.random() * 10) - 5),
-        waitTime: Math.max(0, prev.waitTime + (Math.random() * 2 - 1))
-      }));
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 w-full max-w-md">
       {/* Header */}

@@ -1,11 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Settings, Play, RotateCcw } from 'lucide-react';
 import { API } from '../../api';
 
-export default function Simulation() {
+export default function Simulation({isReset, setIsReset}) {
     const [status, setStatus] = useState('Pause');
     const [speed, setSpeed] = useState('Normal');
     const [scenario, setScenario] = useState('Normal');
+
+    // Watch for isReset changes from other components
+    useEffect(() => {
+        const performReset = async () => {
+            if (!isReset) return; // Only run if reset was triggered
+            
+            try {
+                await handleReset();
+            } catch (error) {
+                console.error("Error during simulation reset:", error);
+            } finally {
+                setIsReset(false);
+            }
+        };
+        
+        performReset();
+    }, [isReset, setIsReset]); 
 
      const handlePlayPause = async () => {
         setStatus(status === 'Pause' ? 'Resume' : 'Pause');
@@ -25,8 +42,23 @@ export default function Simulation() {
         }
     };
 
-    const handleReset = () => {
-        setIsRunning(false);
+    const handleReset = async () => {
+        setStatus('Pause');
+        setScenario('Normal');
+        setSpeed('Normal')
+        try {
+            const response = await fetch(API.POST_SIMULATION_STATUS, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: 'Reset' }), // paused = inverse of running
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Server error:", errorText);
+            }
+        } catch (error) {
+            console.error("Network or client error:", error);
+        }
     };
 
     const handleSetNewSpeedLevel = async (newLevel) => {
@@ -74,6 +106,10 @@ export default function Simulation() {
         }
     };
 
+    const handleResetClick = () => {
+        // Set isReset to true to trigger reset in both components
+        setIsReset(true);
+    };
 
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 w-full max-w-md">
@@ -99,7 +135,7 @@ export default function Simulation() {
                     )}
                 </button>
                 <button
-                    onClick={handleReset}
+                    onClick={handleResetClick}
                     className="bg-blue-50 hover:bg-blue-100 rounded-lg px-2 py-2 flex items-center justify-center transition-colors"
                 >
                     <RotateCcw className="w-3 h-3 text-blue-600" />

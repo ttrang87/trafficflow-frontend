@@ -13,6 +13,7 @@ function App() {
   const [avgSpeed, setAvgSpeed] = useState(0);
   const [avgWait, setAvgWait] = useState(0);
   const [shouldConnectWebSocket, setShouldConnectWebSocket] = useState(false);
+  const [isReset, setIsReset] = useState(false);
 
   // WebSocket hook is now called in the parent component
   useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnectWebSocket, setTotalCar, setAvgSpeed, setAvgWait);
@@ -32,10 +33,10 @@ function App() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Simulation />
+            <Simulation isReset={isReset} setIsReset={setIsReset}/>
             {/* LiveStats now gets totalCar directly */}
             <LiveStats totalCar={totalCar} avgSpeed={avgSpeed} avgWait={avgWait} />
-            <TrafficLightController trafficLightColors={trafficLightColors} />
+            <TrafficLightController trafficLightColors={trafficLightColors}  isReset={isReset} setIsReset={setIsReset} />
           </div>
  
       </div>

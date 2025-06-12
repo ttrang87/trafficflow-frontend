@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { RotateCcw } from 'lucide-react';
+import { API } from '../../api';
 
-const TrafficLightController = ({ trafficLightColors }) => {
+const TrafficLightController = ({ trafficLightColors, isReset, setIsReset }) => {
     if (!trafficLightColors) {
         return (
             <div className="bg-white rounded-lg border border-gray-200 p-5 w-full max-w-md min-w-80">
@@ -12,6 +13,7 @@ const TrafficLightController = ({ trafficLightColors }) => {
         );
     }
 
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const {
         North: north,
@@ -33,6 +35,46 @@ const TrafficLightController = ({ trafficLightColors }) => {
         west: west.count
     });
 
+    // Initialize with default values, will be updated from API
+    const [yellowTime, setYellowTime] = useState(3);
+    const [greenTime, setGreenTime] = useState(7);
+
+    useEffect(() => {
+        const getDuration = async () => {
+            try {
+                const response = await fetch(API.LIGHT_DURATION, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.YELLOW !== undefined) {
+                    setYellowTime(data.YELLOW);
+                }
+                if (data.GREEN !== undefined) {
+                    setGreenTime(data.GREEN);
+                }
+
+                
+
+            } catch (error) {
+                console.error('❌ Error fetching light duration: ', error);
+            } finally {
+                // Reset the flag after completion
+                setIsReset(false);
+            }
+        };
+
+        getDuration();
+    }, [isReset, setIsReset]); // Added setIsReset to dependencies
+
     useEffect(() => {
         if (trafficLightColors) {
             setCurrentStates({
@@ -50,12 +92,31 @@ const TrafficLightController = ({ trafficLightColors }) => {
         }
     }, [trafficLightColors]);
 
-    const [yellowTime, setYellowTime] = useState(5);
-    const [greenTime, setGreenTime] = useState(25);
-    const [isRunning, setIsRunning] = useState(false);
+    const postNewDuration = async (newYellow, newGreen) => {
+        setIsUpdating(true);
+        try {
+            const response = await fetch(API.LIGHT_DURATION, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    yellow: newYellow,
+                    green: newGreen
+                })
+            });
 
-    // Calculate red time based on constraint: red = (yellow + green) * 3
-    const redTime = (yellowTime + greenTime) * 3;
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.error('❌ Error updating light duration: ', error);
+        } finally {
+            setIsUpdating(false);
+        }
+    };
 
     const adjustTime = (type, change) => {
         if (type === 'yellow') {
@@ -67,17 +128,22 @@ const TrafficLightController = ({ trafficLightColors }) => {
         }
     };
 
+    const handleReset = async () => {
+        postNewDuration(yellowTime, greenTime)
+        setIsReset(true);
+
+    };
+
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-5 w-full max-w-md min-w-80">
             {/* Header */}
             <div className="flex items-center gap-2 mb-3">
-                {/* <TrendingUp className="w-5 h-5 text-blue-600" /> */}
                 <h2 className="text-sm font-semibold text-blue-900">Traffic Light</h2>
+                {isUpdating && <span className="text-xs text-orange-500">Updating...</span>}
             </div>
 
-
             {/* Traffic Light Status Grid */}
-            <div className="grid grid-cols-2 gap-2 mb-3">
+            <div className="grid grid-cols-2 gap-2 mb-4">
                 {/* North */}
                 <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                     <div className={`w-4 h-4 rounded-full ${currentStates.north === 'green' ? 'bg-green-500' : currentStates.north === 'yellow' ? 'bg-yellow-400' : 'bg-red-500'}`}></div>
@@ -108,7 +174,7 @@ const TrafficLightController = ({ trafficLightColors }) => {
             </div>
 
             {/* Light Timing Controls */}
-            <div className="space-y-3 mb-3">
+            <div className="space-y-3 mb-4">
                 <h2 className="text-xs font-semibold text-blue-900">Duration (seconds)</h2>
 
                 {/* Red - Non-modifiable */}
@@ -117,8 +183,8 @@ const TrafficLightController = ({ trafficLightColors }) => {
                         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                         <span className="text-xs">Red</span>
                     </div>
-                    <div className="flex items-center gap-2 mr-14">
-                        <span className="text-xs text-center">{redTime}</span>
+                    <div className="flex items-center gap-2 mr-10">
+                        <span className="text-xs text-center">{3 * (yellowTime + greenTime)}</span>
                     </div>
                 </div>
 
@@ -130,21 +196,20 @@ const TrafficLightController = ({ trafficLightColors }) => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button
-                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center disabled:opacity-50"
                             onClick={() => adjustTime('yellow', -1)}
-                            disabled={isRunning}
+                            disabled={isUpdating}
                         >
                             −
                         </button>
                         <span className="text-xs text-center">{yellowTime}</span>
                         <button
-                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center disabled:opacity-50"
                             onClick={() => adjustTime('yellow', 1)}
-                            disabled={isRunning}
+                            disabled={isUpdating}
                         >
                             +
                         </button>
-
                     </div>
                 </div>
 
@@ -156,17 +221,17 @@ const TrafficLightController = ({ trafficLightColors }) => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button
-                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center disabled:opacity-50"
                             onClick={() => adjustTime('green', -1)}
-                            disabled={isRunning}
+                            disabled={isUpdating}
                         >
                             −
                         </button>
                         <span className="text-xs text-center">{greenTime}</span>
                         <button
-                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+                            className="w-4 h-5 text-xs rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center disabled:opacity-50"
                             onClick={() => adjustTime('green', 1)}
-                            disabled={isRunning}
+                            disabled={isUpdating}
                         >
                             +
                         </button>
@@ -175,19 +240,19 @@ const TrafficLightController = ({ trafficLightColors }) => {
             </div>
 
             {/* Control Buttons */}
-
             <button
-                className="w-full p-2 rounded text-xs bg-gray-500 hover:bg-gray-600 text-white flex justify-center items-center gap-2"
+                className="w-full p-2 rounded text-xs bg-gray-500 hover:bg-gray-600 text-white flex justify-center items-center gap-2 disabled:opacity-50"
+                onClick={() => handleReset()}
+                disabled={isUpdating}
             >
                 <RotateCcw className='w-3 h-3 text-white' />
                 Reset
             </button>
 
-
             {/* Constraint Info */}
             <div className="mt-4 p-2 bg-blue-50 rounded-lg text-xs text-blue-800">
                 <strong>Constraint:</strong> Red duration = (Yellow + Green) × 3<br />
-                Current: {redTime}s = ({yellowTime} + {greenTime}) × 3
+                Current: {3 * (yellowTime + greenTime)}s = ({yellowTime} + {greenTime}) × 3
             </div>
         </div>
     );
