@@ -3,12 +3,26 @@ import { Settings, Play, RotateCcw } from 'lucide-react';
 import { API } from '../../api';
 
 export default function Simulation() {
-    const [isRunning, setIsRunning] = useState(false);
+    const [status, setStatus] = useState('Pause');
     const [speed, setSpeed] = useState('Normal');
     const [scenario, setScenario] = useState('Normal');
 
-    const handlePlayPause = () => {
-        setIsRunning(!isRunning);
+     const handlePlayPause = async () => {
+        setStatus(status === 'Pause' ? 'Resume' : 'Pause');
+
+        try {
+            const response = await fetch(API.POST_SIMULATION_STATUS, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: status }), // paused = inverse of running
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Server error:", errorText);
+            }
+        } catch (error) {
+            console.error("Network or client error:", error);
+        }
     };
 
     const handleReset = () => {
@@ -72,10 +86,10 @@ export default function Simulation() {
             {/* Control Buttons */}
             <div className="flex gap-2 mb-3">
                 <button
-                    onClick={handlePlayPause}
+                    onClick={() => handlePlayPause()}
                     className="flex-1 bg-green-50 border border-green-200 hover:bg-green-100 rounded-lg px-2 py-2 flex items-center justify-center transition-colors focus:outline-none"
                 >
-                    {isRunning ? (
+                    {status === "Pause" ? (
                         <div className="flex gap-1">
                             <div className="w-1 h-3 bg-green-800 rounded-sm"></div>
                             <div className="w-1 h-3 bg-green-800 rounded-sm"></div>

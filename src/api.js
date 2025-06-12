@@ -8,6 +8,7 @@ export const API = {
 
     POST_NEW_SPEED: `${API_BASE}/set-speed-level`,
     POST_NEW_DENSITY: `${API_BASE}/set-density-level`,
+    POST_SIMULATION_STATUS: `${API_BASE}/monitor`,
 
     SYSTEM_CHECK: `${API_BASE}/actuator/health`,
     WS_ENDPOINT: `${API_BASE}/ws`
