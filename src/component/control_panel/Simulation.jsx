@@ -38,6 +38,29 @@ export default function Simulation() {
         }
     };
 
+    const handleSetNewDensityLevel = async (newLevel) => {
+        try {
+            setScenario(newLevel)
+
+            const response = await fetch(API.POST_NEW_DENSITY, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ density: newLevel }), // Send as object
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Server error:", errorText);
+            }
+
+        } catch (error) {
+            console.error("Network or client error:", error);
+        }
+    };
+
+
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 w-full max-w-md">
             {/* Header */}
@@ -90,12 +113,12 @@ export default function Simulation() {
 
             {/* Scenario Section */}
             <div>
-                <h3 className="text-xs font-medium text-blue-900 mb-3">Scenario</h3>
+                <h3 className="text-xs font-medium text-blue-900 mb-3">Density</h3>
                 <div className="flex gap-2">
-                    {['Normal', 'Rush Hour', 'Rainy'].map((scenarioOption) => (
+                    {['Sparse', 'Normal', 'Rush Hour'].map((scenarioOption) => (
                         <button
                             key={scenarioOption}
-                            onClick={() => setScenario(scenarioOption)}
+                            onClick={() => handleSetNewDensityLevel(scenarioOption)}
                             className={`flex-1 px-2 py-2 rounded-lg text-xs font-medium transition-colors focus:outline-none ${scenario === scenarioOption
                                 ? 'bg-green-100 text-green-800 border border-green-200'
                                 : 'bg-blue-50 text-blue-900 hover:bg-blue-100'

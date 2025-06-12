@@ -7,6 +7,7 @@ export const API = {
     GET_CAR:  `${API_BASE}/get-car`,
 
     POST_NEW_SPEED: `${API_BASE}/set-speed-level`,
+    POST_NEW_DENSITY: `${API_BASE}/set-density-level`,
 
     SYSTEM_CHECK: `${API_BASE}/actuator/health`,
     WS_ENDPOINT: `${API_BASE}/ws`
