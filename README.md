@@ -11,6 +11,11 @@ emergency vehicle priority.
 **Backend Repo**: https://github.com/ttrang87/trafficflow-backend
 
 ---
+## 🎥 Demo
+
+![Traffic Simulation Demo](demo/demo.gif)
+
+---
 
 ## ⚡ Key Features
 
