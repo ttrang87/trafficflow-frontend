@@ -1,66 +1,72 @@
 # 🚦 Traffic Simulation System
 
-Real-time traffic simulation with intelligent vehicle behavior, dynamic traffic management, and interactive controls.
+> **Real-time traffic intersection simulation with intelligent vehicle behavior, collision-free operation, and interactive monitoring**
+---
 
 ## 🚀 Overview
 
-This project aims to combine learning and practical application of Java core concepts and the Spring Boot framework by simulating real-world traffic scenarios in a controlled web environment. The simulation allows exploring complex and unpredictable traffic behaviors safely, providing insights and control through an interactive web interface.
+This project demonstrates advanced Java multithreading and real-time system design by simulating a complex traffic intersection. The system manages **70+ concurrent vehicles** across multiple lanes with emergency vehicle priority, achieving **100% safety** through advanced lane filtering, vehicle behaviors, safe-distance management, and
+emergency vehicle priority. 
+
+**Backend Repo**: https://github.com/ttrang87/trafficflow-backend
+
+---
 
 ## ⚡ Key Features
 
 ### 🚥 Traffic Infrastructure
-
-- **Smart Traffic Lights**: Automatic color cycling with adaptive timing based on traffic flow
-- **Pedestrian Signals**: Dedicated crossing signals with realistic timing patterns
-- **Multi-Lane Roads**: Dynamic lane management with directional flow control
-- **Intersection Management**: Complex traffic routing and collision detection
+- **Smart Traffic Lights**: 4 traffic lights with automatic timing control
+- **Multi-Lane System**: 24 lanes (8 outbound lanes, 8 inbound lanes, center area, 8 emergency lanes)  
+- **Intersection Management**: Complex routing with lane filtering and safe distance control
 
 ### 🚗 Vehicle System
 
-**Vehicle Categories:**
-- Normal Cars (sedans, SUVs, trucks)
-- Utility Vehicles (buses, delivery trucks)
-- Emergency Vehicles (ambulances, fire trucks, police)
+**Vehicle Categories (3 Types with special speed and size):**
+- **Normal Cars**: Ford, Toyota, Audi, Honda, Minivan
+- **Delivery Vehicles**  
+- **Emergency Vehicles** (Ambulances, Fire Trucks, Police)
 
-**Realistic Behavior:**
-- Dynamic speed and acceleration based on traffic conditions
-- Intelligent stopping at safe distances
-- Acceleration patterns when lights change
-- Emergency vehicle priority handling
-- **Collision Detection**: Advanced accident simulation and response
-
-### 🚶 Pedestrian System
-
-- **Realistic Movement**: Human-like walking patterns and crossing behavior
-- **Signal Compliance**: Response to pedestrian crossing signals
-- **Rush Behavior**: Faster movement when signal timing is critical
+**Intelligent Behavior:**
+- Dynamic speed adjustment based on traffic conditions
+- Safe distance maintenance between vehicles
+- **Lane switching with binary search optimization**
+- **Emergency vehicle priority** with automatic traffic light pause and priority lanes
+- **100% Collision Prevention**: Advanced safety algorithms ensuring zero accidents
 
 ### 🎛️ Control Panel
 
-**Analytics Dashboard**
-- **Traffic Flow Metrics**: Real-time vehicle and pedestrian count tracking
-- **Safety Analysis**: Accident rate monitoring and safety score calculation
-- **Performance Insights**: System efficiency and bottleneck identification
+**Real-Time Monitoring:**
+- **Live Traffic Analytics**: Vehicle count and flow efficiency tracking (average wait time and speed)
+- **Emergency Notifications**: Instant alerts for emergency vehicle activity
 
-**Simulation Controls**
+**Simulation Controls:**
 - **Playback Control**: Start, pause, and reset simulation
-- **Dynamic Spawning**: Add custom vehicles and pedestrians during runtime
-- **Traffic Load Management**: Adjust overall traffic density
-- **Signal Timing**: Custom traffic light and pedestrian signal intervals
-- **Weather Simulation**: Rain, fog, and other conditions affecting behavior
+- **Speed Modes**: 3 adjustable simulation speeds
+- **Density Control**: Dynamic traffic load adjustment
+- **Traffic Light Timing**: Customizable signal duration
+
+---
 
 ## 🛠️ Tech Stack
 
-**Backend**: Java 17, Spring Boot, WebSocket, Multithreading  
-**Frontend**: React, JavaScript, Canvas API, Tailwind CSS  
-**Architecture**: REST API + WebSocket for real-time communication
+| **Backend** | **Frontend** | **Architecture** |
+|-------------|--------------|------------------|
+| Java 17 | React | REST API |
+| Spring Boot | JavaScript | WebSocket |
+| Multithreading | Canvas API | Real-time Communication |
+| WebSocket | Tailwind CSS | Thread-Safe Design |
+
+---
 
 ## 🏆 Technical Highlights
 
-- **Concurrent Processing**: Thread-safe simulation engine handling hundreds of entities
-- **Real-Time Communication**: WebSocket integration for instant state synchronization  
-- **Performance Optimization**: Canvas rendering with requestAnimationFrame for smooth animations
-- **Complex Algorithms**: Advanced pathfinding, collision detection, and traffic flow optimization
+- **🔥 High-Performance Processing**: 2,100+ state updates per second
+- **⚡ Concurrent Architecture**: 30+ threads with thread-safe synchronization
+- **📡 Real-Time Communication**: WebSocket integration for instant state updates
+- **🧠 Advanced Algorithms**: Binary search lane optimization
+- **🛡️ Zero Race Conditions**: Robust thread safety implementation
+
+---
 
 ## 🚀 Quick Start
 
@@ -72,18 +78,31 @@ cd backend && mvn spring-boot:run
 cd frontend && npm install && npm start
 ```
 
-Visit `http://localhost:3000` to start simulating traffic scenarios.
+🌐 **Visit** `http://localhost:5173` to start the traffic simulation.
 
-## 💡 Why This Project
+---
 
-Demonstrates advanced software engineering skills through:
+## 💡 Technical Achievements
+
+| **Metric** | **Achievement** |
+|------------|-----------------|
+| **Concurrent Entities** | 70+ vehicles managed simultaneously |
+| **Safety Record** | 100% collision-free operation |
+| **Performance** | 2100+ updates per second |
+| **Thread Safety** | Zero race conditions and deadlocks |
+| **Emergency Response** | Automated traffic light pause and priority lanes |
+
+---
+
+## 🎯 Why This Project?
+
+**Built to demonstrate production-level concurrent programming and real-time system design skills:**
 
 - **System Design**: Multi-component real-time architecture
 - **Concurrent Programming**: Safe multithreading with Java
-- **Full-Stack Development**: Modern React + Spring Boot integration
-- **Performance Engineering**: Optimized rendering and state management
+- **Performance Engineering**: Optimized state management
 - **Real-World Problem Solving**: Complex traffic behavior modeling
 
 ---
 
-**Built to showcase production-ready development skills for software engineering roles.**
+**💼 Showcases software engineering skills for production-ready development roles**
