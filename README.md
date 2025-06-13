@@ -21,15 +21,15 @@ emergency vehicle priority.
 ### 🚗 Vehicle System
 
 **Vehicle Categories (3 Types with special speed and size):**
-- Normal Cars: Ford, Toyota, Audi, Honda, Minivan
-- Delivery Vehicles  
-- Emergency Vehicles (Ambulances, Fire Trucks, Police)
+- **Normal Cars**: Ford, Toyota, Audi, Honda, Minivan
+- **Delivery Vehicles**  
+- **Emergency Vehicles** (Ambulances, Fire Trucks, Police)
 
 **Intelligent Behavior:**
 - Dynamic speed adjustment based on traffic conditions
 - Safe distance maintenance between vehicles
-- Lane switching with binary search optimization
-- Emergency vehicle priority with automatic traffic light pause
+- **Lane switching with binary search optimization**
+- **Emergency vehicle priority** with automatic traffic light pause and priority lanes
 - **100% Collision Prevention**: Advanced safety algorithms ensuring zero accidents
 
 ### 🎛️ Control Panel
