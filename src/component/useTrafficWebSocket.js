@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnect, setTotalCar, setAvgSpeed, setAvgWait) {
+export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnect, setTotalCar, setAvgSpeed, setAvgWait, setTotalAllVehicle) {
   const clientRef = useRef(null);
 
   useEffect(() => {
@@ -26,10 +26,14 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
           setTrafficLightColors(data);
         });
 
-
         client.subscribe("/topic/number-of-vehicles", (message) => {
           const data = JSON.parse(message.body);
           setTotalCar(data);
+        });
+
+         client.subscribe("/topic/total-number-of-vehicles", (message) => {
+          const data = JSON.parse(message.body);
+          setTotalAllVehicle(data);
         });
 
         client.subscribe("/topic/avg-speed", (message) => {

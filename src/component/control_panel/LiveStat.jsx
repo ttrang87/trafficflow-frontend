@@ -1,6 +1,6 @@
-import { TrendingUp, Car, Zap, Timer, Skull } from 'lucide-react';
+import { TrendingUp, Car, Zap, Timer, Skull, Truck } from 'lucide-react';
 
-export default function LiveStats({totalCar, avgSpeed, avgWait}) {
+export default function LiveStats({totalCar, avgSpeed, avgWait, totalAllVehicle}) {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 w-full max-w-md">
       {/* Header */}
@@ -17,14 +17,23 @@ export default function LiveStats({totalCar, avgSpeed, avgWait}) {
             <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
               <Car className="w-3 h-3 text-blue-800" />
             </div>
-            <span className="text-xs font-medium text-blue-900">Total Vehicles</span>
+            <span className="text-xs font-medium text-blue-900">Live Vehicles</span>
           </div>
           <span className="text-sm font-semibold text-green-700">{totalCar}</span>
+        </div>
+         <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+              <Truck className="w-3 h-3 text-green-600" />
+            </div>
+            <span className="text-xs font-medium text-blue-900">Total Vehicles</span>
+          </div>
+          <span className="text-sm font-semibold text-green-700">{totalAllVehicle}</span>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-              <Zap className="w-3 h-3 text-green-600" />
+              <Zap className="w-3 h-3 text-blue-800" />
             </div>
             <span className="text-xs font-medium text-blue-900">System Speed</span>
           </div>
@@ -33,13 +42,13 @@ export default function LiveStats({totalCar, avgSpeed, avgWait}) {
        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-              <Timer className="w-3 h-3 text-blue-800" />
+              <Timer className="w-3 h-3 text-green-600" />
             </div>
             <span className="text-xs font-medium text-blue-900">Wait Time</span>
           </div>
           <span className="text-sm font-semibold text-green-700">{avgWait} s</span>
         </div>
-
+{/* 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
@@ -48,7 +57,7 @@ export default function LiveStats({totalCar, avgSpeed, avgWait}) {
             <span className="text-xs font-medium text-blue-900">Collision</span>
           </div>
           <span className="text-sm font-semibold text-green-700">0</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
