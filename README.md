@@ -77,7 +77,7 @@ cd backend && mvn spring-boot:run
 cd frontend && npm install && npm start
 ```
 
-🌐 **Visit** `http://localhost:3000` to start the traffic simulation.
+🌐 **Visit** `http://localhost:5173` to start the traffic simulation.
 
 ---
 
