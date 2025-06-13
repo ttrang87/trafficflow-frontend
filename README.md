@@ -1,8 +1,6 @@
 # 🚦 Traffic Simulation System
 
 > **Real-time traffic intersection simulation with intelligent vehicle behavior, collision-free operation, and interactive monitoring**
-
-Backend Repo: https://github.com/ttrang87/trafficflow-frontend
 ---
 
 ## 🚀 Overview
@@ -10,6 +8,7 @@ Backend Repo: https://github.com/ttrang87/trafficflow-frontend
 This project demonstrates advanced Java multithreading and real-time system design by simulating a complex traffic intersection. The system manages **70+ concurrent vehicles** across multiple lanes with emergency vehicle priority, achieving **100% safety** through advanced lane filtering, vehicle behaviors, safe-distance management, and
 emergency vehicle priority. 
 
+Backend Repo: https://github.com/ttrang87/trafficflow-backend
 ---
 
 ## ⚡ Key Features
