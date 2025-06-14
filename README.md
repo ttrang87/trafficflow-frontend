@@ -56,7 +56,7 @@ emergency vehicle priority.
 
 | **Backend** | **Frontend** | **Architecture** |
 |-------------|--------------|------------------|
-| Java 17 | React | REST API |
+| Java 24 | React | REST API |
 | Spring Boot | JavaScript | WebSocket |
 | Multithreading | Canvas API | Real-time Communication |
 | WebSocket | Tailwind CSS | Thread-Safe Design |
