@@ -9,9 +9,9 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
     if (!shouldConnect) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+      webSocketFactory: () => new SockJS(`${process.env.REACT_APP_API_URL}/ws`),
       debug: (msg) => console.log("STOMP DEBUG:", msg),
-      reconnectDelay: 5000,
+      reconnectDelay: 8000,
       onConnect: (frame) => {
         console.log("✅ STOMP connected:", frame);
 
