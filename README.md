@@ -14,6 +14,8 @@ emergency vehicle priority.
 
 ---
 ## 🎥 Demo
+![image](https://github.com/user-attachments/assets/bacf9e81-28e5-417b-85e3-4859989613d1)
+
 
 ![Traffic Simulation Demo](demo/demo.gif)
 
