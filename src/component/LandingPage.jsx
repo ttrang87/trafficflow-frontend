@@ -33,10 +33,10 @@ export default function TrafficSimulationLanding() {
         }
     };
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center p-4 relative overflow-hidden w-screen">
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center p-12 relative overflow-hidden w-screen">
             <div className="max-w-4xl mx-auto text-center space-y-8">
                 {/* Header */}
-                <div className="space-y-12">
+                <div className="space-y-12 mt-10">
                     <h1 className="text-4xl md:text-6xl font-bold text-blue-1000 leading-tight">
                         Traffic Intersection
                         <span className="block text-green-700">Simulation</span>

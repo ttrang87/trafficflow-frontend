@@ -23,7 +23,6 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
 
         client.subscribe("/topic/traffic-light", (message) => {
           const data = JSON.parse(message.body);
-          console.log(data)
           setTrafficLightColors(data);
         });
 
@@ -32,7 +31,7 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
           setTotalCar(data);
         });
 
-         client.subscribe("/topic/total-number-of-vehicles", (message) => {
+        client.subscribe("/topic/total-number-of-vehicles", (message) => {
           const data = JSON.parse(message.body);
           setTotalAllVehicle(data);
         });
@@ -42,7 +41,7 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
           setAvgSpeed(data);
         });
 
-         client.subscribe("/topic/avg-wait", (message) => {
+        client.subscribe("/topic/avg-wait", (message) => {
           const data = JSON.parse(message.body);
           setAvgWait(data);
         });
@@ -59,8 +58,10 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
     return () => {
       if (clientRef.current) {
         clientRef.current.deactivate();
+        clientRef.current = null;
         console.log("🔌 STOMP client deactivated");
       }
     };
+
   }, [shouldConnect]); // <— Depend only on shouldConnect
 }

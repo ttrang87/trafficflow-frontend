@@ -1,4 +1,4 @@
-const API_BASE = "https://trafficflow-backend.onrender.com"
+const API_BASE = "http://localhost:8080"
 
 export const API = {
     START_SIMULATION: `${API_BASE}/start-simulation`,
@@ -13,6 +13,7 @@ export const API = {
 
     SYSTEM_CHECK: `${API_BASE}/actuator/health`,
     CONNECT: `${API_BASE}/connect`,
+    DISCONNECT:  `${API_BASE}/disconnect`,
     WS_ENDPOINT: `${API_BASE}/ws`
 }
 
