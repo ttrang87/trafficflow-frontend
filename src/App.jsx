@@ -1,48 +1,18 @@
-import { useState } from "react";
-import useTrafficWebSocket from "./component/useTrafficWebSocket";
-import LiveStats from "./component/control_panel/LiveStat"
-import Simulation from "./component/control_panel/Simulation"
-import TrafficFlow from "./component/road_system/TrafficFlow"
-import TrafficLightController from "./component/control_panel/TrafficLightControl";
+// App.js
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TrafficSimulationLanding from "./component/LandingPage";
+import MainSimulation from "./component/MainSimulation";
 
 function App() {
-  // All WebSocket-related state is now in the parent App component
-  const [vehicles, setVehicles] = useState(null);
-  const [trafficLightColors, setTrafficLightColors] = useState(null);
-  const [totalCar, setTotalCar] = useState(0);
-  const [totalAllVehicle, setTotalAllVehicle] = useState(0);
-  const [avgSpeed, setAvgSpeed] = useState(0);
-  const [avgWait, setAvgWait] = useState(0);
-  const [shouldConnectWebSocket, setShouldConnectWebSocket] = useState(false);
-  const [isReset, setIsReset] = useState(false);
-
-  // WebSocket hook is now called in the parent component
-  useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnectWebSocket, setTotalCar, setAvgSpeed, setAvgWait, setTotalAllVehicle);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-6 w-screen">
-      <div className="w-full flex gap-6 items-start justify-center gap-6">
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-fit">
-            {/* Pass down all the props TrafficFlow needs */}
-            <TrafficFlow 
-              vehicles={vehicles}
-              trafficLightColors={trafficLightColors}
-              setShouldConnectWebSocket={setShouldConnectWebSocket}
-              shouldConnectWebSocket={shouldConnectWebSocket}
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <Simulation isReset={isReset} setIsReset={setIsReset}/>
-            {/* LiveStats now gets totalCar directly */}
-            <LiveStats totalCar={totalCar} avgSpeed={avgSpeed} avgWait={avgWait} totalAllVehicle={totalAllVehicle}/>
-            <TrafficLightController trafficLightColors={trafficLightColors}  isReset={isReset} setIsReset={setIsReset} />
-          </div>
- 
-      </div>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<TrafficSimulationLanding />} />
+        <Route path="/simulation" element={<MainSimulation/>} />
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

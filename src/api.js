@@ -12,6 +12,7 @@ export const API = {
     POST_SIMULATION_STATUS: `${API_BASE}/monitor`,
 
     SYSTEM_CHECK: `${API_BASE}/actuator/health`,
+    CONNECT: `${API_BASE}/connect`,
     WS_ENDPOINT: `${API_BASE}/ws`
 }
 

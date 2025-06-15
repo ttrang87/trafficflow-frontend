@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { API } from "../api";
 
 export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, shouldConnect, setTotalCar, setAvgSpeed, setAvgWait, setTotalAllVehicle) {
   const clientRef = useRef(null);
@@ -9,9 +10,9 @@ export default function useTrafficWebSocket(setVehicles, setTrafficLightColors, 
     if (!shouldConnect) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS(`${process.env.REACT_APP_API_URL}/ws`),
+      webSocketFactory: () => new SockJS(API.WS_ENDPOINT),
       debug: (msg) => console.log("STOMP DEBUG:", msg),
-      reconnectDelay: 8000,
+      reconnectDelay: 0,
       onConnect: (frame) => {
         console.log("✅ STOMP connected:", frame);
 
