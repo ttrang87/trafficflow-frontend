@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080"
+const API_BASE = "https://trafficflow-backend.onrender.com"
 
 export const API = {
     START_SIMULATION: `${API_BASE}/start-simulation`,
